@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>말로 만드는 내 홈페이지</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{--main:#1f3864;--mid:#41557b;--pale:#d8dee9;--tint:#f5f7fa;--ink:#1a1a1a;--gray:#666;--sub:#999;--code:#f2f4f7;--bg:#fff}
+  *{box-sizing:border-box}
+  html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,"Malgun Gothic",sans-serif;line-height:1.65}
+  section{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;max-width:1040px;margin:0 auto;padding:56px 24px;border-bottom:1px solid var(--pale)}
+  h1{font-size:44px;margin:0;line-height:1.3}
+  h2{font-size:32px;margin:0 0 6px}
+  .sub{color:var(--sub);margin:0 0 28px;padding-bottom:20px;border-bottom:1px solid var(--pale)}
+  .label{color:var(--main);font-weight:800;font-size:13px;letter-spacing:.14em}
+  .cover{text-align:center;align-items:center}
+  .cover .dash{width:28px;height:3px;background:var(--main);margin-bottom:14px}
+  .cover .h1b{color:var(--main);font-size:36px;font-weight:800;margin:6px 0 18px}
+  .cover .lead{color:var(--gray);font-size:18px}
+  .cover .org{margin-top:36px;padding-top:20px;border-top:1px solid var(--pale);font-weight:700}
+  .cover .org small{display:block;color:var(--sub);font-weight:400}
+  .toc{list-style:none;padding:0;margin:0}
+  .toc li{display:flex;gap:24px;padding:12px 0;border-bottom:1px solid var(--pale);font-size:18px}
+  .toc li:last-child{border-bottom:0}
+  .toc b{color:var(--main);min-width:28px}
+  .cards{display:grid;gap:14px;grid-template-columns:repeat(var(--n,3),1fr)}
+  .card{border:1px solid var(--pale);padding:20px 20px 18px;background:#fff}
+  .card .label{font-size:12px}
+  .card h3{font-size:20px;margin:6px 0 8px}
+  .card p{margin:0;color:var(--gray);font-size:15px;white-space:pre-line}
+  .note{background:var(--tint);border-left:4px solid var(--main);padding:14px 20px;margin-top:20px}
+  .note b{display:block;color:var(--main);font-size:12px;letter-spacing:.12em}
+  .note div{font-weight:700;font-size:18px;margin-top:2px}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{border:1px solid var(--pale);padding:10px 12px;text-align:center;vertical-align:middle}
+  th{background:var(--main);color:#fff}
+  td:first-child{background:var(--tint);font-weight:700;text-align:left}
+  td.hi{color:var(--main);font-weight:700}
+  .fine{color:var(--sub);font-size:13px;margin-top:10px}
+  .big{display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:center}
+  .big .num{font-size:180px;font-weight:900;color:var(--main);line-height:1;text-align:center}
+  .big .num small{display:block;font-size:16px;color:var(--ink);font-weight:700;margin-top:8px}
+  .reason{border-left:3px solid var(--main);padding:4px 0 4px 16px;margin:12px 0}
+  .reason b{font-size:19px}
+  .reason p{margin:2px 0 0;color:var(--gray)}
+  .steps{list-style:none;padding:0;margin:0}
+  .steps li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--pale)}
+  .steps li:last-child{border-bottom:0}
+  .steps .label{padding-top:4px}
+  .steps h4{margin:0;font-size:19px}
+  .steps p{margin:2px 0 0;color:var(--gray)}
+  .cmd{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--code);border:1px solid var(--pale);padding:10px 16px;margin:8px 0;font-weight:700;color:var(--main);font-size:16px}
+  .cmd code{font-family:Consolas,monospace;font-size:16px}
+  .cmd button{flex:none;background:var(--main);color:#fff;border:0;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .two h3{margin:0 0 8px;font-size:19px}
+  .bad h3{color:var(--sub)}
+  .good h3{color:var(--main)}
+  .two ul{margin:0;padding-left:20px;font-size:17px}
+  .two li{margin:8px 0}
+  .bad li{color:var(--gray)}
+  .wrap-up{text-align:center;align-items:center}
+  .wrap-up .l1{font-size:34px;font-weight:800}
+  .wrap-up .l2{font-size:40px;font-weight:900;color:var(--main)}
+  .wrap-up .l3{font-size:20px;font-weight:700;margin-top:8px}
+  .wrap-up em{display:block;color:var(--gray);margin-top:24px;padding-top:20px;border-top:1px solid var(--pale);font-size:17px}
+  .pn{position:fixed;right:16px;bottom:16px;display:flex;gap:6px}
+  .pn button{background:#fff;border:1px solid var(--pale);color:var(--main);font:inherit;font-weight:700;padding:8px 14px;cursor:pointer}
+  @media (max-width:760px){
+    section{padding:48px 16px;min-height:auto}
+    h1{font-size:32px}.cover .h1b{font-size:26px}h2{font-size:26px}
+    .cards{grid-template-columns:1fr}
+    .big{grid-template-columns:1fr}.big .num{font-size:110px}
+    .two{grid-template-columns:1fr}
+    .steps li{grid-template-columns:1fr;gap:2px}
+    table{font-size:13px}th,td{padding:8px 6px}
+    .tbl{overflow-x:auto}
+    .pn{display:none}
+  }
+  .topnav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--pale);backdrop-filter:blur(6px)}
+  .topnav .in{max-width:1040px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:20px;height:56px}
+  .topnav .brand{font-weight:800;color:var(--main);white-space:nowrap;text-decoration:none}
+  .topnav .menu{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .topnav .menu::-webkit-scrollbar{display:none}
+  .topnav .menu a{white-space:nowrap;text-decoration:none;color:var(--gray);font-size:14px;font-weight:600;padding:6px 10px}
+  .topnav .menu a.on{color:var(--main);box-shadow:inset 0 -2px 0 var(--main)}
+  html{scroll-padding-top:56px}
+  section{min-height:calc(100vh - 56px)}
+  @media (max-width:760px){.topnav .in{padding:0 16px;gap:12px}.topnav .brand{font-size:14px}}
+</style>
+</head>
+<body>
+<header class="topnav"><div class="in"><a class="brand" href="#s0">바이브 코딩 실습</a><nav class="menu" id="menu"></nav></div></header>
+
+<section class="cover">
+  <div class="dash"></div>
+  <div class="label">VIBE CODING WORKSHOP</div>
+  <h1>말로 만드는 내 홈페이지</h1>
+  <div class="h1b">Claude Code + GitHub</div>
+  <div class="lead">코드를 몰라도 만들고, 무료로 올리고, 계속 고친다</div>
+  <div class="org">CNP교육컨설팅 이미영<small>바이브 코딩 실습 과정</small></div>
+</section>
+
+<section>
+  <h2>오늘의 순서</h2><p class="sub">이해하고, 비교하고, 직접 올려봅니다</p>
+  <ul class="toc">
+    <li><b>01</b>바이브 코딩이란</li>
+    <li><b>02</b>홈페이지가 세상에 나오는 3단계</li>
+    <li><b>03</b>도구 3가지 비교: Lovable · Netlify · Claude Code + GitHub</li>
+    <li><b>04</b>왜 Claude Code + GitHub인가</li>
+    <li><b>05</b>준비물과 도구의 역할</li>
+    <li><b>06</b>실습: 로그인 → 만들기 → 배포 → 수정</li>
+    <li><b>07</b>좋은 요청 쓰는 법</li>
+    <li><b>08</b>주의사항과 마무리</li>
+  </ul>
+</section>
+
+<section>
+  <h2>바이브 코딩이란</h2><p class="sub">코드를 직접 쓰지 않고, 원하는 것을 말로 설명해 AI가 만들게 하는 방식</p>
+  <div class="cards">
+    <div class="card"><div class="label">STEP 01</div><h3>말로 요청</h3><p>"나를 소개하는 홈페이지 만들어줘"
+원하는 내용과 분위기를 문장으로 설명합니다.</p></div>
+    <div class="card"><div class="label">STEP 02</div><h3>AI가 코드 작성</h3><p>AI가 HTML·CSS 코드를 직접 써서 파일로 만들어 줍니다.</p></div>
+    <div class="card"><div class="label">STEP 03</div><h3>확인하고 다시 요청</h3><p>결과를 보고 "글씨 키워줘"처럼 고칠 점을 말하면 다시 고쳐 줍니다.</p></div>
+  </div>
+  <div class="note"><b>핵심 역량</b><div>코딩 실력보다 '무엇을 원하는지 정확히 설명하는 능력'이 결과를 좌우합니다.</div></div>
+</section>
+
+<section>
+  <h2>홈페이지가 세상에 나오는 3단계</h2><p class="sub">집을 짓고, 땅에 세우고, 주소를 받는 것과 같습니다</p>
+  <div class="cards">
+    <div class="card"><div class="label">01 만들기</div><h3>HTML 파일</h3><p>홈페이지의 설계도이자 집 자체.
+바이브 코딩으로 AI가 만들어 줍니다.</p></div>
+    <div class="card"><div class="label">02 올리기</div><h3>호스팅</h3><p>24시간 켜져 있는 인터넷 서버에 파일을 올려 두는 일. 집을 세울 땅에 해당합니다.</p></div>
+    <div class="card"><div class="label">03 주소</div><h3>URL</h3><p>누구나 접속할 수 있는 인터넷 주소.
+예: 아이디.github.io/사이트이름</p></div>
+  </div>
+  <div class="note"><b>오늘 쓰는 조합</b><div>만들기는 Claude Code, 올리기와 주소는 GitHub Pages(무료)가 맡습니다.</div></div>
+</section>
+
+<section>
+  <h2>비교해 본 도구 3가지</h2><p class="sub">모두 '말로 만들어 인터넷에 올리기'가 가능하지만 역할이 다릅니다</p>
+  <div class="cards">
+    <div class="card"><div class="label">A 올인원 빌더</div><h3>Lovable</h3><p>웹사이트에서 대화하면 AI가 만들고 바로 올려 줍니다.
+
+화면 미리보기가 편하지만, 무료판은 하루·한 달 수정 크레딧이 정해져 있습니다.</p></div>
+    <div class="card"><div class="label">B 호스팅 서비스</div><h3>Netlify</h3><p>다 만든 파일을 올려 주는 곳입니다. 만드는 기능은 따로 필요합니다.
+
+무료판은 월 크레딧 안에서 배포 횟수가 제한됩니다.</p></div>
+    <div class="card"><div class="label">C 오늘의 선택</div><h3>Claude Code + GitHub</h3><p>내 PC의 AI 개발자(Claude Code)가 만들고, GitHub가 무료로 보관·배포합니다.
+
+수정 횟수 걱정 없이 계속 고칠 수 있습니다.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>한눈에 비교</h2><p class="sub">무료로 '계속 수정'할 수 있는지가 수업의 핵심 기준</p>
+  <div class="tbl"><table>
+    <tr><th></th><th>Lovable</th><th>Netlify</th><th>Claude Code + GitHub</th></tr>
+    <tr><td>역할</td><td>만들기 + 올리기</td><td>올리기만</td><td class="hi">만들기 + 올리기</td></tr>
+    <tr><td>만드는 방법</td><td>웹 화면에서 대화</td><td>직접 만든 파일 업로드</td><td class="hi">내 PC에서 대화</td></tr>
+    <tr><td>무료 범위</td><td>하루 약 5크레딧<br>(월 약 30회 수정)</td><td>월 300크레딧<br>(배포 1회 15크레딧)</td><td class="hi">호스팅 무료<br>(Claude 구독 안에서 수정)</td></tr>
+    <tr><td>계속 수정</td><td>크레딧 소진 시 멈춤</td><td>배포 약 20회/월</td><td class="hi">횟수 걱정 없음</td></tr>
+    <tr><td>이전 버전 되돌리기</td><td>가능</td><td>가능</td><td class="hi">모든 수정 기록 보관</td></tr>
+    <tr><td>배우는 것</td><td>해당 서비스 사용법</td><td>호스팅 개념</td><td class="hi">실무 개발자 방식 그대로</td></tr>
+  </table></div>
+  <p class="fine">요금·크레딧은 2026년 10월 기준 공개 자료이며 서비스 정책에 따라 바뀔 수 있습니다.</p>
+</section>
+
+<section>
+  <h2>왜 Claude Code + GitHub인가</h2><p class="sub">비교 결과, 수업에 가장 잘 맞는 이유 4가지</p>
+  <div class="big">
+    <div class="num">4<small>가지 이유</small></div>
+    <div>
+      <div class="reason"><b>추가 비용 없이 계속 수정</b><p>Claude 구독 하나로 만들고 고치기를 반복합니다.</p></div>
+      <div class="reason"><b>호스팅은 완전 무료</b><p>GitHub Pages는 공개 저장소의 정적 사이트를 무료로 올려 줍니다.</p></div>
+      <div class="reason"><b>모든 수정 기록이 남는다</b><p>"어제 버전으로 되돌려줘" 한마디면 이전 상태로 돌아갑니다.</p></div>
+      <div class="reason"><b>실무 표준 도구를 배운다</b><p>개발자들이 실제로 쓰는 Git·GitHub 흐름을 그대로 경험합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>오늘 쓰는 도구와 역할</h2><p class="sub">어려운 이름이지만 역할로 기억하면 쉽습니다</p>
+  <div class="cards" style="--n:4">
+    <div class="card"><div class="label">개발자</div><h3>Claude Code</h3><p>말을 알아듣고 코드를 쓰는 AI. 파일 만들기부터 올리기까지 대신 해 줍니다.</p></div>
+    <div class="card"><div class="label">기록장</div><h3>Git</h3><p>파일이 바뀔 때마다 '저장 지점'을 남겨 언제든 되돌릴 수 있게 합니다.</p></div>
+    <div class="card"><div class="label">온라인 보관소</div><h3>GitHub</h3><p>내 파일과 기록을 인터넷에 보관하는 곳. 사이트에 직접 들어갈 필요는 없습니다.</p></div>
+    <div class="card"><div class="label">무료 호스팅</div><h3>GitHub Pages</h3><p>보관소의 파일을 홈페이지로 열어 주고 주소를 만들어 줍니다.</p></div>
+  </div>
+  <div class="note"><b>기억할 한 가지</b><div>우리는 Claude Code에게 말만 합니다. 나머지 셋은 Claude Code가 다룹니다.</div></div>
+</section>
+
+<section>
+  <h2>준비물</h2><p class="sub">수업 전에 1번과 2번을 미리 해 오면 실습 시간이 넉넉해집니다</p>
+  <div class="cards">
+    <div class="card"><div class="label">준비 01</div><h3>Claude 유료 요금제</h3><p>Pro 이상이면 Claude Code를 쓸 수 있습니다. 오늘 실습에서 유일한 비용입니다.</p></div>
+    <div class="card"><div class="label">준비 02</div><h3>GitHub 계정</h3><p>github.com에서 무료 가입.
+이메일 인증까지 마쳐 두세요.
+아이디(영문)가 홈페이지 주소가 됩니다.</p></div>
+    <div class="card"><div class="label">준비 03</div><h3>PC 프로그램 3개</h3><p>Claude Code
+Git
+GitHub CLI(gh)
+실습실 PC에는 미리 설치되어 있습니다.</p></div>
+  </div>
+  <div class="note"><b>아이디 예시</b><div>아이디가 cnpgood이면 내 홈페이지 주소는 cnpgood.github.io/사이트이름</div></div>
+</section>
+
+<section>
+  <h2>실습 1&nbsp; 깃허브 로그인</h2><p class="sub">처음 한 번만 하면 됩니다 (약 1분)</p>
+  <ul class="steps">
+    <li><span class="label">STEP 01</span><div><h4>Claude Code 대화창에 입력하고 엔터</h4><div class="cmd"><code>! gh auth login --web</code><button data-t="! gh auth login --web">복사</button></div></div></li>
+    <li><span class="label">STEP 02</span><div><h4>화면에 나온 8자리 코드를 복사</h4><p>예: ABCD-1234 형태. 15분 안에 입력해야 합니다.</p></div></li>
+    <li><span class="label">STEP 03</span><div><h4>github.com/login/device 에 코드 붙여넣기</h4><p>Continue를 누르고 Authorize github를 누릅니다.</p></div></li>
+    <li><span class="label">STEP 04</span><div><h4>Claude에게 "로그인 했어"라고 말하기</h4><p>Claude가 로그인 상태를 확인해 줍니다.</p></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>실습 2&nbsp; 홈페이지 만들기</h2><p class="sub">원하는 것을 말로 설명합니다</p>
+  <h3 style="margin:0 0 6px">이렇게 요청해 보세요</h3>
+  <div class="cmd">나를 소개하는 홈페이지 만들어줘. 이름, 전공, 관심 분야, 연락 버튼을 넣어줘.<button data-t="나를 소개하는 홈페이지 만들어줘. 이름, 전공, 관심 분야, 연락 버튼을 넣어줘.">복사</button></div>
+  <div class="cmd">흰 바탕에 남색 포인트로, 휴대폰에서도 잘 보이게 해줘.<button data-t="흰 바탕에 남색 포인트로, 휴대폰에서도 잘 보이게 해줘.">복사</button></div>
+  <div class="cmd">다 만들면 바탕화면에 저장하고 브라우저로 열어줘.<button data-t="다 만들면 바탕화면에 저장하고 브라우저로 열어줘.">복사</button></div>
+  <div class="cards" style="--n:2;margin-top:16px">
+    <div class="card"><div class="label">확인 01</div><h3>미리보기</h3><p>바탕화면 파일을 더블클릭해 브라우저에서 확인</p></div>
+    <div class="card"><div class="label">확인 02</div><h3>고칠 점 메모</h3><p>마음에 안 드는 곳을 한 문장으로 적어 두기</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>실습 3&nbsp; 인터넷에 올리기(배포)</h2><p class="sub">한마디면 Claude Code가 저장소 만들기부터 배포 설정까지 처리합니다</p>
+  <div class="cmd">이거 깃허브에 올려서 배포해줘<button data-t="이거 깃허브에 올려서 배포해줘">복사</button></div>
+  <ul class="steps">
+    <li><span class="label">자동 01</span><div><h4>저장소(Repository) 생성</h4><p>내 깃허브 계정에 사이트 이름으로 보관소가 만들어집니다.</p></div></li>
+    <li><span class="label">자동 02</span><div><h4>파일 업로드 + GitHub Pages 켜기</h4><p>1~2분 뒤 홈페이지가 열립니다.</p></div></li>
+    <li><span class="label">확인</span><div><h4>주소를 휴대폰으로 열어 보기</h4><p>https://아이디.github.io/사이트이름</p></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>실습 4&nbsp; 수정하고 되돌리기</h2><p class="sub">말할 때마다 고쳐서 다시 올립니다. 1~2분 뒤 같은 주소에 반영</p>
+  <div class="two">
+    <div>
+      <h3>수정 요청</h3>
+      <div class="cmd">제목을 '반갑습니다'로 바꿔줘</div>
+      <div class="cmd">프로젝트 소개 칸을 하나 추가해줘</div>
+      <div class="cmd">버튼 색을 남색으로 바꿔줘</div>
+      <div class="cmd">고친 거 깃허브에 다시 올려줘</div>
+    </div>
+    <div>
+      <h3>되돌리기</h3>
+      <div class="cmd">아까 버전으로 되돌려줘</div>
+      <div class="cmd">지금까지 수정 기록 보여줘</div>
+      <p style="color:var(--gray)">Git이 수정할 때마다 저장 지점을 남기기 때문에, 실수해도 언제든 이전 상태로 돌아갈 수 있습니다.</p>
+    </div>
+  </div>
+  <div class="note"><b>안 바뀌어 보이면</b><div>1~2분 기다린 뒤 새로고침(Ctrl + F5). 그래도 그대로면 Claude에게 그대로 말하세요.</div></div>
+</section>
+
+<section>
+  <h2>좋은 요청 쓰는 법</h2><p class="sub">구체적일수록 한 번에 원하는 결과가 나옵니다</p>
+  <div class="two">
+    <div class="card bad"><h3>아쉬운 요청</h3><ul><li>예쁘게 만들어줘</li><li>이상해, 고쳐줘</li><li>다 바꿔줘</li></ul></div>
+    <div class="card good"><h3>좋은 요청</h3><ul><li>흰 바탕에 남색 포인트, 글씨는 크게</li><li>휴대폰에서 메뉴가 겹쳐 보여. 한 줄로 정리해줘</li><li>자기소개 문단만 3줄로 줄여줘</li></ul></div>
+  </div>
+  <div class="note"><b>요청 공식</b><div>누구를 위한 + 어떤 내용 + 어떤 분위기 + 어디를 어떻게</div></div>
+</section>
+
+<section>
+  <h2>주의사항</h2><p class="sub">공개 홈페이지라는 점을 꼭 기억하세요</p>
+  <div class="cards">
+    <div class="card"><div class="label">01</div><h3>누구나 볼 수 있어요</h3><p>무료 저장소와 홈페이지는 전체 공개입니다.</p></div>
+    <div class="card"><div class="label">02</div><h3>개인정보 금지</h3><p>전화번호, 집 주소, 학번, 주민번호는 넣지 않습니다.</p></div>
+    <div class="card"><div class="label">03</div><h3>사진·글 저작권</h3><p>직접 찍은 사진이나 무료 이미지만 사용합니다.</p></div>
+    <div class="card"><div class="label">04</div><h3>보여주는 사이트용</h3><p>회원가입·로그인 같은 서버 기능은 지원하지 않습니다.</p></div>
+    <div class="card"><div class="label">05</div><h3>공용 PC는 로그아웃</h3><p>다음 사람이 내 계정으로 올리지 않도록 꼭 로그아웃합니다.</p></div>
+    <div class="card"><div class="label">06</div><h3>반영은 1~2분</h3><p>올린 직후 안 바뀌어도 잠시 기다린 뒤 새로고침합니다.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>수업 마무리</h2><p class="sub">내 주소를 공유하고, 공용 PC라면 로그아웃까지</p>
+  <ul class="steps">
+    <li><span class="label">CHECK 01</span><div><h4>내 홈페이지 주소를 채팅방에 공유</h4><p>서로의 주소에 접속해 보고 칭찬 한 줄 남기기</p></div></li>
+    <li><span class="label">CHECK 02</span><div><h4>깃허브 로그아웃</h4><div class="cmd"><code>! gh auth logout</code><button data-t="! gh auth logout">복사</button></div></div></li>
+    <li><span class="label">CHECK 03</span><div><h4>Claude 로그아웃</h4><div class="cmd"><code>/logout</code><button data-t="/logout">복사</button></div></div></li>
+  </ul>
+  <p style="color:var(--gray)">집에서 계속 고치고 싶다면 내 PC에 Claude Code를 설치하고 같은 방법으로 로그인하면 됩니다.</p>
+</section>
+
+<section class="wrap-up">
+  <div class="label">WRAP UP</div>
+  <div class="l1">말로 만들고, 무료로 올리고,</div>
+  <div class="l2">계속 고쳐 나가는 내 홈페이지</div>
+  <div class="l3">Claude Code + GitHub</div>
+  <em>코드보다 중요한 것은 원하는 것을 정확히 말하는 힘</em>
+  <div class="cover"><div class="org" style="border:0;margin-top:20px">CNP교육컨설팅 이미영<small>바이브 코딩 실습 과정</small></div></div>
+</section>
+
+<nav class="pn"><button id="prev">이전</button><button id="next">다음</button></nav>
+<script>
+document.querySelectorAll('button[data-t]').forEach(function(b){
+  b.addEventListener('click',function(){
+    try{navigator.clipboard.writeText(b.getAttribute('data-t')).then(function(){b.textContent='복사됨';setTimeout(function(){b.textContent='복사'},1500)})}catch(e){}
+  });
+});
+var secs=[].slice.call(document.querySelectorAll('section'));
+secs.forEach(function(s,k){s.id='s'+k});
+var NAV=[['소개',2],['도구 비교',4],['선택 이유',6],['준비물',7],['실습1 로그인',9],['실습2 만들기',10],['실습3 배포',11],['실습4 수정',12],['요청법',13],['주의사항',14],['마무리',15]];
+var menu=document.getElementById('menu');
+NAV.forEach(function(n){var a=document.createElement('a');a.href='#s'+n[1];a.textContent=n[0];menu.appendChild(a)});
+var links=[].slice.call(menu.querySelectorAll('a'));
+function mark(){var i=cur(),on=-1;NAV.forEach(function(n,k){if(n[1]<=i)on=k});links.forEach(function(a,k){a.classList.toggle('on',k===on)});if(on>=0){var a=links[on];var m=menu;if(a.offsetLeft<m.scrollLeft||a.offsetLeft+a.offsetWidth>m.scrollLeft+m.clientWidth)m.scrollLeft=a.offsetLeft-20}}
+window.addEventListener('scroll',function(){clearTimeout(window._t);window._t=setTimeout(mark,60)});
+function cur(){var y=window.scrollY+80,i=0;secs.forEach(function(s,k){if(s.offsetTop<=y)i=k});return i}
+function go(d){var i=Math.max(0,Math.min(secs.length-1,cur()+d));secs[i].scrollIntoView()}
+mark();
+document.getElementById('prev').onclick=function(){go(-1)};
+document.getElementById('next').onclick=function(){go(1)};
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(1)}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1)}
+});
+</script>
+</body>
+</html>
