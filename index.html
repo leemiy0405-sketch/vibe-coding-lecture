@@ -309,6 +309,7 @@ document.querySelectorAll('button[data-t]').forEach(function(b){
 });
 var secs=[].slice.call(document.querySelectorAll('section'));
 secs.forEach(function(s,k){s.id='s'+k});
+if(location.hash){var _h=document.getElementById(location.hash.slice(1));if(_h)setTimeout(function(){_h.scrollIntoView()},0)}
 var NAV=[['소개',2],['도구 비교',4],['선택 이유',6],['준비물',7],['실습1 로그인',9],['실습2 만들기',10],['실습3 배포',11],['실습4 수정',12],['요청법',13],['주의사항',14],['마무리',15]];
 var menu=document.getElementById('menu');
 NAV.forEach(function(n){var a=document.createElement('a');a.href='#s'+n[1];a.textContent=n[0];menu.appendChild(a)});
